@@ -111,7 +111,7 @@ VerifyButton.MouseButton1Click:Connect(function()
         MainFrame:TweenSize(UDim2.new(0, 320, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.5, true)
         wait(0.5)
         ScreenGui:Destroy()
-        -- Load Your Script Here
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EncryptedV2/Free/refs/heads/main/Nova%20Hub%20Free", true))()
     else
         StatusLabel.Text = "Key Incorrect, Try Again!"
         StatusLabel.TextColor3 = Color3.fromRGB(255, 50, 50)
