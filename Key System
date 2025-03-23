@@ -1,0 +1,127 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local CorrectKey = "NovaHubRework"
+
+-- Create ScreenGui
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = PlayerGui
+ScreenGui.ResetOnSpawn = false
+
+-- Create Main Frame
+local MainFrame = Instance.new("Frame")
+MainFrame.Parent = ScreenGui
+MainFrame.Size = UDim2.new(0, 320, 0, 180)
+MainFrame.Position = UDim2.new(0.5, -160, 0.5, -90)
+MainFrame.BackgroundColor3 = Color3.fromRGB(40, 10, 60)
+MainFrame.BorderSizePixel = 0
+MainFrame.ClipsDescendants = true
+
+-- UI Corner for Rounded Edges
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 8)
+UICorner.Parent = MainFrame
+
+-- Gradient Background
+local UIGradient = Instance.new("UIGradient")
+UIGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(100, 40, 150)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(50, 10, 100))
+}
+UIGradient.Rotation = 90
+UIGradient.Parent = MainFrame
+
+-- Title Label
+local TitleLabel = Instance.new("TextLabel")
+TitleLabel.Parent = MainFrame
+TitleLabel.Size = UDim2.new(1, 0, 0, 35)
+TitleLabel.Position = UDim2.new(0, 0, 0, 0)
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Text = "Enter Key to Continue"
+TitleLabel.TextSize = 16
+TitleLabel.TextColor3 = Color3.fromRGB(220, 200, 255)
+TitleLabel.Font = Enum.Font.GothamBold
+
+-- Key TextBox
+local KeyBox = Instance.new("TextBox")
+KeyBox.Parent = MainFrame
+KeyBox.Size = UDim2.new(1, -20, 0, 35)
+KeyBox.Position = UDim2.new(0, 10, 0, 40)
+KeyBox.BackgroundColor3 = Color3.fromRGB(60, 20, 90)
+KeyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+KeyBox.PlaceholderText = "Enter Key..."
+KeyBox.Font = Enum.Font.Gotham
+KeyBox.TextSize = 14
+KeyBox.ClearTextOnFocus = false
+
+-- UI Corner for KeyBox
+local KeyUICorner = Instance.new("UICorner")
+KeyUICorner.CornerRadius = UDim.new(0, 6)
+KeyUICorner.Parent = KeyBox
+
+-- Status Label (Displays Correct or Incorrect)
+local StatusLabel = Instance.new("TextLabel")
+StatusLabel.Parent = MainFrame
+StatusLabel.Size = UDim2.new(1, 0, 0, 25)
+StatusLabel.Position = UDim2.new(0, 0, 0, 85)
+StatusLabel.BackgroundTransparency = 1
+StatusLabel.Text = ""
+StatusLabel.TextSize = 14
+StatusLabel.TextColor3 = Color3.fromRGB(255, 50, 50)
+StatusLabel.Font = Enum.Font.GothamBold
+
+-- Verify Button
+local VerifyButton = Instance.new("TextButton")
+VerifyButton.Parent = MainFrame
+VerifyButton.Size = UDim2.new(1, -20, 0, 35)
+VerifyButton.Position = UDim2.new(0, 10, 0, 115)
+VerifyButton.BackgroundColor3 = Color3.fromRGB(120, 50, 180)
+VerifyButton.Text = "Verify Key"
+VerifyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+VerifyButton.Font = Enum.Font.GothamBold
+VerifyButton.TextSize = 14
+
+-- UI Corner for Verify Button
+local VerifyUICorner = Instance.new("UICorner")
+VerifyUICorner.CornerRadius = UDim.new(0, 6)
+VerifyUICorner.Parent = VerifyButton
+
+-- Copy Key Link Button
+local CopyButton = Instance.new("TextButton")
+CopyButton.Parent = MainFrame
+CopyButton.Size = UDim2.new(1, -20, 0, 30)
+CopyButton.Position = UDim2.new(0, 10, 0, 155)
+CopyButton.BackgroundColor3 = Color3.fromRGB(60, 20, 90)
+CopyButton.Text = "Copy Key Link"
+CopyButton.TextColor3 = Color3.fromRGB(200, 200, 255)
+CopyButton.Font = Enum.Font.Gotham
+CopyButton.TextSize = 12
+
+-- UI Corner for Copy Button
+local CopyUICorner = Instance.new("UICorner")
+CopyUICorner.CornerRadius = UDim.new(0, 6)
+CopyUICorner.Parent = CopyButton
+
+-- Function to Verify Key
+VerifyButton.MouseButton1Click:Connect(function()
+    if KeyBox.Text == CorrectKey then
+        StatusLabel.Text = "Key Correct, Loading Script..."
+        StatusLabel.TextColor3 = Color3.fromRGB(50, 255, 50)
+        wait(1)
+        MainFrame:TweenSize(UDim2.new(0, 320, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.5, true)
+        wait(0.5)
+        ScreenGui:Destroy()
+        -- Load Your Script Here
+    else
+        StatusLabel.Text = "Key Incorrect, Try Again!"
+        StatusLabel.TextColor3 = Color3.fromRGB(255, 50, 50)
+    end
+end)
+
+-- Function to Copy Key Link
+CopyButton.MouseButton1Click:Connect(function()
+    setclipboard("https://discord.gg/3rFk4uANmm")
+    CopyButton.Text = "Copied!"
+    wait(1)
+    CopyButton.Text = "Copy Key Link"
+end)
